@@ -6,9 +6,23 @@
 <script type="text/javascript" src="jquery-ui-1.8.21.custom.min.js"></script>
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 
-<title>Movie Visulization</title>
+<title>Movie Visualization</title>
 </head>
 <body>
+
+	<script type="text/javascript">
+	
+		var dataset = []
+		
+		d3.csv("movies_full.csv", function(data) {
+
+			dataset = data;
+			alert(data);
+		});
+		
+		alert("asd");
+	</script>
+
 
 </body>
 </html>
