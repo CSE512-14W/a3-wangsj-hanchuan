@@ -2,7 +2,7 @@
 Hanchuan Li: hanchuan@uw.edu
 Shengjie Wang: wangsj@uw.edu
 
-## Project Name：Movie Explorer.
+## Project Name：Movie Explorer：Which movie to watch tonight?
 The data domain for our visualization is a part of the movie.csv file from assignment 2, with correction of mistakes. We visualized movies produced from 2000-2010 for user do browse and compare according to different ordering and visual encodings so that they can pick up the movie they are interested in watching.
 
 User can manually select the ordering of the movie data, as long as the volumes that the bar chart is representing above and below the X axis. So that they can browse the movie data according to their interests
