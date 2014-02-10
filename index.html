@@ -5,7 +5,7 @@
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.js"></script>
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-
+<link type="text/css" href="default.css" rel="stylesheet" />
 <style>
 
 
@@ -38,8 +38,9 @@
 #display {
 	position: absolute;
 	font-family:arial;
-
+	color:#C8C8C8;
 }
+
 
 #display2 {
 	top: 200;
@@ -48,15 +49,19 @@
 .display div{
 	font-family:arial;
 	position: relative; 
+	font-color:bluesteel;
+	color:white;
 }
 
 .my_select{
 	position: relative;
 	font-family:arial;
+	color:white;
 }
 
-#selects { 
+#selects {
 	font-family:arial;
+	color:white;
 }
 
 select {
@@ -84,6 +89,7 @@ select {
 		<div id="display1" class="display">Bin Info : 
 			<div id="info1">
 				<div id="value">Not Selected</div>
+				<div id="std"> </div>
 			</div>
 		</div>
 		<div id="display2" class="display">Movie Info : 
@@ -100,7 +106,7 @@ select {
 		</div>
 	</div>
 	
-	<div id="selects">
+	<div id="selects" >
 	<div class="s_div">
 	<span id="s_span1">Up Data:</span>
 	<select id="up_select" class="my_select" onchange="selectUp(this.value)">
@@ -137,7 +143,6 @@ select {
 		<option value="IMDB Votes">IMDB Votes</option>
 	</select>
 	</div>
-	
 	</div>
 
 	<script type="text/javascript">
@@ -214,6 +219,14 @@ select {
 		}
 	
 	
+		function std(data, avg) {
+			var sum = 0.0;
+			for(var i=0; i<data.length; i++) {
+				sum += (data[i] - avg)*(data[i] - avg);
+			}
+			return Math.sqrt(sum / data.length);
+		}
+		
 		var dataset = [];
 		var time_dataset = [];
 		var us_gross = [], ww_gross = [];
@@ -246,13 +259,13 @@ select {
 		$("#display2").offset({top:400});
 		$("#info2").offset({top:430});
 		
-		$("#up_select").offset({left: 100});
-		$("#sort_select").offset({left: 100});
-		$("#down_select").offset({left: 100});
+		$("#up_select").offset({left: 150});
+		$("#sort_select").offset({left: 150});
+		$("#down_select").offset({left: 150});
 		
 		function displayMovieInfo(index) {
 			var movie = dataset[index];
-			$("#Title").text("Title: " + movie["Title"]);
+			$("#Title").text(movie["Title"]);
 			$("#USGross").text("US Gross: " + Math.floor(movie["US Gross"] / (1000*1000) * 10) / 10);
 			$("#WWGross").text("WW Gross: " + Math.floor(movie["WW Gross"] / (1000*1000) * 10) / 10);
 			$("#IMDBRating").text("IMDB Rating: " + movie["IMDB Rating"]);
@@ -263,10 +276,17 @@ select {
 			
 		}
 		
-		function displayBinInfo(index, data) {
+		function displayBinInfo(index, bin_data, data) {
 			var ratio = 1;
-			if(data[index] > (1000 * 1000)) ratio = 1000 * 1000;
-			$("#value").text("Average Value: " + Math.floor(data[index] / ratio * 10) / 10);
+			if(bin_data[index] > (1000 * 1000)) ratio = 1000 * 1000;
+			$("#value").text("Average Value: " + Math.floor(bin_data[index] / ratio * 10) / 10);
+			
+			var orig_data = new Array();
+			var num_per_bin = Math.floor(data.length / bin_data.length);
+			for(var i=0; i<num_per_bin; i++) {
+				orig_data[i] = data[index * num_per_bin + i];
+			}
+			$('#std').text("Standard Deviation: " + Math.floor(std(orig_data, bin_data[index]) / ratio * 10) / 10);
 		}
 		
 		
@@ -335,6 +355,10 @@ select {
 		function drawUpBars(data) {
 			n_data = normalizeAgainst(up_data, data);
 			
+			var h_ratio = 1;
+			var ds = $("#up_select").val();
+			if(ds =="IMDB Rating") h_ratio = 0.5;
+			
 			up_chart.selectAll("rect")
 				.data(n_data)
 			.enter().append("rect")
@@ -347,7 +371,7 @@ select {
 				.on("mouseover", 
 						function(d, i) {
     						d3.select(this).attr("fill", "liquid");
-    						displayBinInfo(i, data)
+    						displayBinInfo(i, data, up_data)
 						})
 				.on("mouseout",
 						function(d, i){
@@ -374,14 +398,18 @@ select {
 						})
 				.transition()
 					.duration(function (d,i){ return (data.length-i) * 16;})
-					.attr("height", function(d) { return Math.round(d * bar_height); })
-					.attr("y", function(d) { return bar_height - y(d); });	
+					.attr("height", function(d) { return Math.round(d * bar_height * h_ratio); })
+					.attr("y", function(d) { return bar_height - y(d) * h_ratio; });	
 		}
 		
 		
 		
 		function drawDownBars(data) {
 			n_data = normalizeAgainst(down_data, data);
+			
+			var h_ratio = 1;
+			var ds = $("#down_select").val();
+			if(ds =="IMDB Rating") h_ratio = 0.5;
 			
 			down_chart.selectAll("rect")
 				.data(n_data)
@@ -395,7 +423,7 @@ select {
 				.on("mouseover", 
 						function(d, i) {
     						d3.select(this).attr("fill", "liquid");
-    						displayBinInfo(i, data)
+    						displayBinInfo(i, data, down_data)
 						})
 				.on("mouseout",
 						function(d, i){
@@ -424,7 +452,7 @@ select {
 						})
 				.transition()
 					.duration(function (d,i){ return i * 10;})
-					.attr("height", function(d) { return Math.round(d * bar_height); });
+					.attr("height", function(d) { return Math.round(d * bar_height * h_ratio); });
 				
 		}
 		
@@ -462,6 +490,10 @@ select {
 			left_point += 2 * zoom_bar_width;
 			
 			if(chart == up_chart) {
+				var h_ratio = 1;
+				var ds = $("#up_select").val();
+				if(ds =="IMDB Rating") h_ratio = 0.5;
+				
 				$("#up_zoom_div").css("z-index", 22);
 				$("#up_zoom_div").offset({left:left_point});
 				$("#up_zoom_div").width(right_point - left_point);
@@ -490,10 +522,14 @@ select {
 								d3.select(this).attr("fill", "orange");
 							})
 					.transition()
-						.attr("y", function(d){return bar_height - y(d);})
+						.attr("y", function(d){return bar_height - y(d) * h_ratio;})
 						.duration(500);
 			}
 			else {
+				var h_ratio = 1;
+				var ds = $("#down_select").val();
+				if(ds =="IMDB Rating") h_ratio = 0.5;
+				
 				$("#down_zoom_div").css("z-index", 21);
 				var t = $("#up_zoom_div").position().top+$('#up_zoom_div').outerHeight(true);
 				$("#down_zoom_div").offset({top: t, left:left_point});
@@ -522,7 +558,7 @@ select {
 								d3.select(this).attr("fill", "orange");
 							})
 					.transition()
-						.attr("height", function(d){ return d * bar_height; })
+						.attr("height", function(d){ return d * bar_height * h_ratio; })
 						.duration(500);
 			}
 			
@@ -581,6 +617,7 @@ select {
 			for(var i=0; i<dataset.length; i++) {
 				down_data[i] = dataset[i][val];
 			}
+
 			bin_down_data = bin(down_data, down_bins);
 			drawDownBars(bin_down_data);
 		}
