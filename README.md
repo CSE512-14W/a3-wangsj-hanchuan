@@ -1,8 +1,9 @@
-## Team Members:
+## Team Members
 - Hanchuan Li: hanchuan@uw.edu
 - Shengjie Wang: wangsj@uw.edu
 
-## Project Name：Movie Explorer：Which movie to watch tonight?
+## Project Name
+##Movie Explorer：Which movie to watch tonight?
 
 The data domain for our visualization is a part of the movie.csv file from assignment 2, with correction of mistakes. We visualized movies produced from 2000-2010 for user do browse and compare according to different ordering and visual encodings so that they can pick up the movie they are interested in watching.
 
@@ -12,10 +13,10 @@ User can manually select the ordering of the movie data, as long as the volumes 
 Live Version:
 http://cse512-14w.github.io/a3-wangsj-hanchuan/
 
-## Story Board:
+## Story Board
 https://www.dropbox.com/s/mloa7q2cv7seu9p/A3_Story_Board.pdf
 
-## Changes between Storyboard and the Final Implementation:
+## Changes between Storyboard and the Final Implementation
 
 The changes we applied to final visualization includes: 
 Grouping the bar chart to 19 movies each and used average for ordering. Because there is a lot of movies and it is easier to browse them after grouping movie with similar sorting characteristics. 
