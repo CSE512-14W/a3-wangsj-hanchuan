@@ -108,7 +108,7 @@ select {
 	
 	<div id="selects" >
 	<div class="s_div">
-	<span id="s_span1">Up Data:</span>
+	<span id="s_span1">Data on Top:</span>
 	<select id="up_select" class="my_select" onchange="selectUp(this.value)">
 		<option value="US Gross">US Gross</option>
 		<option value="WW Gross">WW Gross</option>
@@ -120,7 +120,7 @@ select {
 	</div>
 	
 	<div class="s_div">
-	<span id="s_span2">Down Data:</span>
+	<span id="s_span2">Data on Bottom:</span>
 	<select id="down_select" class="my_select" onchange="selectDown(this.value)">
 		<option value="US Gross">US Gross</option>
 		<option value="WW Gross" selected="selected">WW Gross</option>
@@ -258,6 +258,8 @@ select {
 		$("#info1").offset({top:230});
 		$("#display2").offset({top:400});
 		$("#info2").offset({top:430});
+		
+		$("#selects").offset({top:20, left:20});
 		
 		$("#up_select").offset({left: 150});
 		$("#sort_select").offset({left: 150});
