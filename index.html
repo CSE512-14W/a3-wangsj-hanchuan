@@ -74,6 +74,10 @@ select {
 	color:white;
 }
 
+#title {
+	font-size:20px;
+}
+
 </style>
 
 
@@ -90,7 +94,10 @@ select {
 		<div class="pa" id="down_zoom_div"><svg id="down_zoom"></svg></div>
 	</div>
 
-	<div id="info"> Visualization of Movie Data from 2000 to 2010</div>
+	<div id="info"> 
+		<div id="title">Which Movie to Watch Tonight?</div>
+		Visualization of Movie Data from 2000 to 2010
+	</div>
 
 	<div id="display">
 		<div id="display1" class="display">Bin Info : 
@@ -116,6 +123,7 @@ select {
 	</div>
 	
 	<div id="selects" >
+	<div class="s_div"> What data do you want to look at?</div>
 	<div class="s_div">
 	<span id="s_span1">Data on Top:</span>
 	<select id="up_select" class="my_select" onchange="selectUp(this.value)">
