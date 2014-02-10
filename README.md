@@ -1,8 +1,9 @@
 ## Team Members:
-Hanchuan Li: hanchuan@uw.edu
-Shengjie Wang: wangsj@uw.edu
+1. Hanchuan Li: hanchuan@uw.edu
+2. Shengjie Wang: wangsj@uw.edu
 
 ## Project Name：Movie Explorer：Which movie to watch tonight?
+
 The data domain for our visualization is a part of the movie.csv file from assignment 2, with correction of mistakes. We visualized movies produced from 2000-2010 for user do browse and compare according to different ordering and visual encodings so that they can pick up the movie they are interested in watching.
 
 User can manually select the ordering of the movie data, as long as the volumes that the bar chart is representing above and below the X axis. So that they can browse the movie data according to their interests
@@ -17,7 +18,7 @@ https://www.dropbox.com/s/mloa7q2cv7seu9p/A3_Story_Board.pdf
 ## Changes between Storyboard and the Final Implementation:
 
 The changes we applied to final visualization includes: 
-Grouping the bar chart to 15 movies each and used average for ordering. Because there is a lot of movies and it is easier to browse them after grouping movie with similar sorting characteristics. 
+Grouping the bar chart to 19 movies each and used average for ordering. Because there is a lot of movies and it is easier to browse them after grouping movie with similar sorting characteristics. 
 Abandon the visual encoding of the C volume(the width if the bar chart), because a variable width of the bar chart will make it difficult to click and browse. 
 Added Color encoding to the major genre, helping the user to filter out their favorite type of movie at first glance.
 
