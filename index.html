@@ -388,7 +388,7 @@ select {
 			
 			var h_ratio = 1;
 			var ds = $("#up_select").val();
-			if(ds =="IMDB Rating") h_ratio = 0.5;
+			if(ds =="IMDB Rating" || ds =="Rotten Tomatoes Rating") h_ratio = 0.5;
 			
 			up_chart.selectAll("rect")
 				.data(n_data)
@@ -440,7 +440,7 @@ select {
 			
 			var h_ratio = 1;
 			var ds = $("#down_select").val();
-			if(ds =="IMDB Rating") h_ratio = 0.5;
+			if(ds =="IMDB Rating" || ds =="Rotten Tomatoes Rating") h_ratio = 0.5;
 			
 			down_chart.selectAll("rect")
 				.data(n_data)
@@ -532,7 +532,7 @@ select {
 			if(chart == up_chart) {
 				var h_ratio = 1;
 				var ds = $("#up_select").val();
-				if(ds =="IMDB Rating") h_ratio = 0.5;
+				if(ds =="IMDB Rating" || ds =="Rotten Tomatoes Rating") h_ratio = 0.5;
 				
 				$("#up_zoom_div").css("z-index", 22);
 				$("#up_zoom_div").offset({left:left_point});
@@ -568,7 +568,7 @@ select {
 			else {
 				var h_ratio = 1;
 				var ds = $("#down_select").val();
-				if(ds =="IMDB Rating") h_ratio = 0.5;
+				if(ds =="IMDB Rating" || ds =="Rotten Tomatoes Rating") h_ratio = 0.5;
 				
 				$("#down_zoom_div").css("z-index", 21);
 				var t = $("#up_zoom_div").position().top+$('#up_zoom_div').outerHeight(true);
