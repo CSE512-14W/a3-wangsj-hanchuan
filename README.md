@@ -20,8 +20,8 @@ https://www.dropbox.com/s/mloa7q2cv7seu9p/A3_Story_Board.pdf
 
 ## Changes between Storyboard and the Final Implementation
 
-The changes we applied to final visualization includes: 
-We grouped the bar charts into bins each of which contained 19 movies, and used average value for the value of the bin. Because there are lots of movies, it is easier to browse them after grouping, and drill down some particular bin to see the details. 
+The changes we applied to final visualization included: 
+We grouped the bar charts into bins each of which contained 19 movies, and used average value as the value of the bin. Because there are lots of movies, it is easier to browse them after grouping, and drill down some particular bin to see the details. 
 We abandoned the visual encodings of the C volume (width for the bar chart), as it was difficult for users to click bars with varying widths. Moreover, people have a better sense about length as compared to area/volume. Therefore, we chose to fix the width of each bar.
 
 ## Development Process
