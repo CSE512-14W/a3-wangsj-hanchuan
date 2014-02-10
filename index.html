@@ -1,93 +1,640 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<!--
-Design by Free CSS Templates
-http://www.freecsstemplates.org
-Released for free under a Creative Commons Attribution 2.5 License
-
-Name       : Skeleton 
-Description: A two-column, fixed-width design with dark color scheme.
-Version    : 1.0
-Released   : 20130902
-
--->
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title></title>
-<meta name="keywords" content="" />
-<meta name="description" content="" />
-<link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet" />
-<link href="default.css" rel="stylesheet" type="text/css" media="all" />
-<link href="fonts.css" rel="stylesheet" type="text/css" media="all" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<!--[if IE 6]><link href="default_ie6.css" rel="stylesheet" type="text/css" /><![endif]-->
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.js"></script>
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<link type="text/css" href="default.css" rel="stylesheet" />
+<style>
 
+
+.zoom svg {
+	position: absolute;
+}
+
+.pa div {
+	top: 500;
+	position: absolute;
+}
+
+#up_div {
+	z-index: 20;
+}
+
+#down_div {
+	z-index: 19;
+}
+
+
+#up_zoom_div {
+	z-index: 1;
+}
+
+#down_zoom_div {
+	z-index: 1;
+}
+
+#display {
+	position: absolute;
+	font-family:arial;
+	color:#C8C8C8;
+}
+
+
+#display2 {
+	top: 200;
+}
+
+.display div{
+	font-family:arial;
+	position: relative; 
+	font-color:bluesteel;
+	color:white;
+}
+
+.my_select{
+	position: relative;
+	font-family:arial;
+	color:white;
+}
+
+#selects {
+	font-family:arial;
+	color:white;
+}
+
+select {
+  z-index: 99;
+  font-family:arial;
+}
+
+</style>
+
+
+<title>Movie Visualization</title>
 </head>
 <body>
-<div id="page" class="container">
-	<div id="header">
-		<div id="logo">
-			<img src="images/pic02.jpg" alt="" />
-			<h1><a href="#">Privy</a></h1>
-			<span>Design by <a href="http://www.freecsstemplates.org/" rel="nofollow">FreeCSSTemplates.org</a></span>
+
+	
+	<div class="pa">
+		<div class="pa" id="up_div"><svg id="up"></svg></div>
+		<div class="pa" id="down_div"><svg id="down"></svg></div>
+		
+		<div class="pa" id="up_zoom_div"><svg id="up_zoom"></svg></div>
+		<div class="pa" id="down_zoom_div"><svg id="down_zoom"></svg></div>
+	</div>
+
+	<div id="display">
+		<div id="display1" class="display">Bin Info : 
+			<div id="info1">
+				<div id="value">Not Selected</div>
+				<div id="std"> </div>
+			</div>
 		</div>
-		<div id="menu">
-			<ul>
-				<li class="current_page_item"><a href="#" accesskey="1" title="">Homepage</a></li>
-				<li><a href="#" accesskey="2" title="">Our Clients</a></li>
-				<li><a href="#" accesskey="3" title="">About Us</a></li>
-				<li><a href="#" accesskey="4" title="">Careers</a></li>
-				<li><a href="#" accesskey="5" title="">Contact Us</a></li>
-			</ul>
+		<div id="display2" class="display">Movie Info : 
+			<div id="info2">
+				<div id="Title">Not Selected</div>
+				<div id="USGross"></div>
+				<div id="WWGross"></div>
+				<div id="IMDBRating"></div>
+				<div id="IMDBVotes"></div>
+				<div id="RTRating"></div>
+				<div id="PB"></div>
+				<div id="RD"></div>
+			</div>
 		</div>
 	</div>
-	<div id="main">
-		<div id="banner">
-			<img src="images/pic01.jpg" alt="" class="image-full" />
-		</div>
-		<div id="welcome">
-			<div class="title">
-				<h2>Fusce ultrices fringilla metus</h2>
-				<span class="byline">Donec leo, vivamus fermentum nibh in augue praesent a lacus at urna congue</span>
-			</div>
-			<p>This is <strong>Privy</strong>, a free, fully standards-compliant CSS template designed by <a href="http://www.freecsstemplates.org/" rel="nofollow">FreeCSSTemplates.org</a>. The photos in this template are from <a href="http://fotogrph.com/"> Fotogrph</a>. This free template is released under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attributions 3.0</a> license, so you are pretty much free to do whatever you want with it (even use it commercially) provided you keep the links in the footer intact. Aside from that, have fun with it :) </p>
-			<ul class="actions">
-				<li><a href="#" class="button">Etiam posuere</a></li>
-			</ul>
-		</div>
-		<div id="featured">
-			<div class="title">
-				<h2>Maecenas lectus sapien</h2>
-				<span class="byline">Integer sit amet aliquet pretium</span>
-			</div>
-			<ul class="style1">
-				<li class="first">
-					<p class="date"><a href="#">Jan<b>05</b></a></p>
-					<h3>Amet sed volutpat mauris</h3>
-					<p><a href="#">Consectetuer adipiscing elit. Nam pede erat, porta eu, lobortis eget, tempus et, tellus. Etiam neque. Vivamus consequat lorem at nisl. Nullam non wisi a sem semper eleifend. Etiam non felis. Donec ut ante.</a></p>
-				</li>
-				<li>
-					<p class="date"><a href="#">Jan<b>03</b></a></p>
-					<h3>Sagittis diam dolor amet</h3>
-					<p><a href="#">Etiam non felis. Donec ut ante. In id eros. Suspendisse lacus turpis, cursus egestas at sem. Mauris quam enim, molestie. Donec leo, vivamus fermentum nibh in augue praesent congue rutrum.</a></p>
-				</li>
-				<li>
-					<p class="date"><a href="#">Jan<b>01</b></a></p>
-					<h3>Amet sed volutpat mauris</h3>
-					<p><a href="#">Consectetuer adipiscing elit. Nam pede erat, porta eu, lobortis eget, tempus et, tellus. Etiam neque. Vivamus consequat lorem at nisl. Nullam non wisi a sem semper eleifend. Etiam non felis. Donec ut ante.</a></p>
-				</li>
-				<li>
-					<p class="date"><a href="#">Dec<b>31</b></a></p>
-					<h3>Sagittis diam dolor amet</h3>
-					<p><a href="#">Etiam non felis. Donec ut ante. In id eros. Suspendisse lacus turpis, cursus egestas at sem. Mauris quam enim, molestie. Donec leo, vivamus fermentum nibh in augue praesent congue rutrum.</a></p>
-				</li>
-			</ul>
-		</div>
-		<div id="copyright">
-			<span>Copyright (c) 2013 Sitename.com. All rights reserved. | Photos by <a href="http://fotogrph.com/">Fotogrph</a></span>
-			<span>Design by <a href="http://www.freecsstemplates.org/" rel="nofollow">FreeCSSTemplates.org</a>.</span>
-		</div>
+	
+	<div id="selects" >
+	<div class="s_div">
+	<span id="s_span1">Data on Top:</span>
+	<select id="up_select" class="my_select" onchange="selectUp(this.value)">
+		<option value="US Gross">US Gross</option>
+		<option value="WW Gross">WW Gross</option>
+		<option value="Production Budget">Production Budget</option>
+		<option value="Rotten Tomatoes Rating">Rotten Tomatoes Rating</option>
+		<option value="IMDB Rating">IMDB Rating</option>
+		<option value="IMDB Votes">IMDB Votes</option>
+	</select>
 	</div>
-</div>
+	
+	<div class="s_div">
+	<span id="s_span2">Data on Bottom:</span>
+	<select id="down_select" class="my_select" onchange="selectDown(this.value)">
+		<option value="US Gross">US Gross</option>
+		<option value="WW Gross" selected="selected">WW Gross</option>
+		<option value="Production Budget">Production Budget</option>
+		<option value="Rotten Tomatoes Rating">Rotten Tomatoes Rating</option>
+		<option value="IMDB Rating">IMDB Rating</option>
+		<option value="IMDB Votes">IMDB Votes</option>
+	</select>
+	</div>
+	
+	<div class="s_div">
+	<span id="s_span3">Sorted By:</span>
+	<select id="sort_select" class="my_select" onchange="selectSort(this.value)">
+		<option value="Release Date">Release Date</option>
+		<option value="US Gross">US Gross</option>
+		<option value="WW Gross">WW Gross</option>
+		<option value="Production Budget">Production Budget</option>
+		<option value="Rotten Tomatoes Rating">Rotten Tomatoes Rating</option>
+		<option value="IMDB Rating">IMDB Rating</option>
+		<option value="IMDB Votes">IMDB Votes</option>
+	</select>
+	</div>
+	</div>
+
+	<script type="text/javascript">
+		
+	
+		function normalize(data) {
+			var n_data = new Array();
+			var max = 0;
+			for(var i=0; i<data.length; i++) {
+				if(data[i] > max) max = data[i];
+			}
+			
+			for(var i=0; i<data.length; i++) {
+				n_data[i] = data[i] * 1.0 / max;
+			}
+			
+			return n_data;
+		}
+		
+		function normalizeAgainst(data_against, data) {
+			var n_data = new Array();
+			var max = 0;
+			for(var i=0; i<data_against.length; i++) {
+				if(data_against[i] > max) max = data_against[i];
+			}
+			
+			for(var i=0; i<data.length; i++) {
+				if(data[i] > max) max = data[i];
+			}
+			
+			for(var i=0; i<data.length; i++) {
+				n_data[i] = data[i] * 1.0 / max;
+			}
+			return n_data;
+		}
+		
+		
+		function bin(data, num_bins) {
+			var binned = new Array();
+			var binned_num = new Array();
+			for(var i=0; i<num_bins; i++) {
+				binned[i] = 0.0;
+				binned_num[i] = 0.0;
+			}
+			
+			var per_bin_num = data.length / num_bins;
+			for(var i=0; i<data.length; i++) {
+				var index = Math.floor(i / per_bin_num);
+				binned[index] += data[i];
+				binned_num[index] += 1;
+			}
+
+			for(var i=0; i<binned.length; i++) {
+				binned[i] = binned[i] / binned_num[i];
+			}
+			
+			return binned;
+		}
+		
+		
+		function sort(data, index) {
+			data.sort(function(a, b){
+				return a[index] - b[index];
+			});
+		}
+		
+		function copyData(data) {
+			cdata = new Array();
+			for(var i=0; i<data.length; i++) {
+				cdata[i] = data[i];
+			}
+			
+			return cdata;
+		}
+	
+	
+		function std(data, avg) {
+			var sum = 0.0;
+			for(var i=0; i<data.length; i++) {
+				sum += (data[i] - avg)*(data[i] - avg);
+			}
+			return Math.sqrt(sum / data.length);
+		}
+		
+		var dataset = [];
+		var time_dataset = [];
+		var us_gross = [], ww_gross = [];
+		
+		var sortable = ["US Gross", "WW Gross", "Production Budget", "Rotten Tomatoes Rating"
+		                        , "IMDB Rating", "IMDB Votes"];
+		
+		var bar_height = 400;
+		var bar_width = 5;
+		var zoom_bar_width = 10;
+		var max_width = 800;
+		
+		var up_bins = 120;
+		var down_bins = 120;
+		
+		var up_data = [];
+		var down_data = [];
+		
+		var bin_up_data = [];
+		var bin_down_data = [];
+		
+		var clicked_up_index = -1;
+		var clicked_down_index = -1;
+		
+		var up_chart = null;
+		var down_chart = null;
+		
+		$("#display").offset({top: 200, left: max_width + 100});
+		$("#info1").offset({top:230});
+		$("#display2").offset({top:400});
+		$("#info2").offset({top:430});
+		
+		$("#selects").offset({top:20, left:20});
+		
+		$("#up_select").offset({left: 150});
+		$("#sort_select").offset({left: 150});
+		$("#down_select").offset({left: 150});
+		
+		function displayMovieInfo(index) {
+			var movie = dataset[index];
+			$("#Title").text(movie["Title"]);
+			$("#USGross").text("US Gross: " + Math.floor(movie["US Gross"] / (1000*1000) * 10) / 10);
+			$("#WWGross").text("WW Gross: " + Math.floor(movie["WW Gross"] / (1000*1000) * 10) / 10);
+			$("#IMDBRating").text("IMDB Rating: " + movie["IMDB Rating"]);
+			$("#IMDBVotes").text("IMDB Votes: " + movie["IMDB Votes"]);
+			$("#RTRating").text("RT Rating: " + movie["Rotten Tomatoes Rating"]);
+			$("#PB").text("Production Budget: " + Math.floor(movie["Production Budget"] / (1000*1000)));	
+			$("#RD").text("Release Date: " + movie["Release Date"]);
+			
+		}
+		
+		function displayBinInfo(index, bin_data, data) {
+			var ratio = 1;
+			if(bin_data[index] > (1000 * 1000)) ratio = 1000 * 1000;
+			$("#value").text("Average Value: " + Math.floor(bin_data[index] / ratio * 10) / 10);
+			
+			var orig_data = new Array();
+			var num_per_bin = Math.floor(data.length / bin_data.length);
+			for(var i=0; i<num_per_bin; i++) {
+				orig_data[i] = data[index * num_per_bin + i];
+			}
+			$('#std').text("Standard Deviation: " + Math.floor(std(orig_data, bin_data[index]) / ratio * 10) / 10);
+		}
+		
+		
+		 var x = d3.scale.linear()
+		 	.domain([0, 1])
+		 	.range([0, bar_width]);
+		 
+		 var y = d3.scale.linear()
+		 	.domain([0, 1])
+			.rangeRound([0, bar_height]);
+		
+		d3.csv("movies_full.csv", function(data) {
+			data.forEach(function(d){ 
+				for(var i=0; i<sortable.length; i++) {					
+					d[sortable[i]] = + d[sortable[i]];
+				}
+
+				});
+			
+			dataset = data;
+			time_dataset = copyData(data);
+			
+			up_data = us_gross;
+			down_data = ww_gross;
+			
+			us_gross = new Array();
+			for(var i=0; i<dataset.length; i++) {
+				up_data[i] = dataset[i][$("#up_select").val()];
+				down_data[i] = dataset[i][$("#down_select").val()];
+			}
+			//normalize(us_gross);
+			//normalize(ww_gross);
+			
+			
+			up_chart = d3.select("#up")
+		    .attr("width", max_width)
+			.attr("height", bar_height);
+
+			down_chart = d3.select("#down")
+		    .attr("width", max_width)
+			.attr("height", bar_height * 2);
+			
+			
+			zoom_chart = d3.select("#up_zoom")
+		    .attr("width", max_width)
+			.attr("height", bar_height);
+			
+			zoom_chart2 = d3.select("#down_zoom")
+		    .attr("width", max_width)
+			.attr("height", bar_height);
+			
+			
+			
+			
+			bin_up_data = bin(up_data, up_bins);
+			bin_down_data = bin(down_data, down_bins);
+			
+			drawUpBars(bin_up_data);
+			drawDownBars(bin_down_data);
+			
+			
+			
+		});
+		
+		
+		function drawUpBars(data) {
+			n_data = normalizeAgainst(up_data, data);
+			
+			var h_ratio = 1;
+			var ds = $("#up_select").val();
+			if(ds =="IMDB Rating") h_ratio = 0.5;
+			
+			up_chart.selectAll("rect")
+				.data(n_data)
+			.enter().append("rect")
+				.attr("x", function(d, i) { return max_width/2 - (data.length/2-i) * bar_width; })
+				.attr("y", function(d) { return bar_height; })
+				.attr("width", bar_width)
+				.attr("height", function(d) { return 0; })
+				.attr("fill", "steelblue")
+				.attr("stroke", "white")
+				.on("mouseover", 
+						function(d, i) {
+    						d3.select(this).attr("fill", "liquid");
+    						displayBinInfo(i, data, up_data)
+						})
+				.on("mouseout",
+						function(d, i){
+							if(clicked_up_index != i)
+								d3.select(this).attr("fill", "steelblue");
+							else
+								d3.select(this).attr("fill", "red");
+						})
+				.on("click",
+						function(d, i) {
+							if(clicked_up_index == i) {
+								zoomout(data, i, up_chart);
+								clicked_up_index = -1;
+							}
+							else {
+								if(clicked_up_index != -1) {
+									d3.select(up_chart.selectAll("rect")[0][clicked_up_index]).attr("fill", "steelblue");
+								}
+								zoom_chart.selectAll("rect").remove();
+								zoomin(bin_up_data, up_data, i, up_chart);
+								clicked_up_index = i;
+								d3.select(this).attr("fill", "red");
+							}
+						})
+				.transition()
+					.duration(function (d,i){ return (data.length-i) * 16;})
+					.attr("height", function(d) { return Math.round(d * bar_height * h_ratio); })
+					.attr("y", function(d) { return bar_height - y(d) * h_ratio; });	
+		}
+		
+		
+		
+		function drawDownBars(data) {
+			n_data = normalizeAgainst(down_data, data);
+			
+			var h_ratio = 1;
+			var ds = $("#down_select").val();
+			if(ds =="IMDB Rating") h_ratio = 0.5;
+			
+			down_chart.selectAll("rect")
+				.data(n_data)
+			.enter().append("rect")
+				.attr("x", function(d, i) { return max_width/2 - (data.length/2-i) * bar_width;})
+				.attr("y", function(d) { return bar_height; })
+				.attr("width", bar_width)
+				.attr("height", 0)
+				.attr("fill", "steelblue")
+				.attr("stroke", "white")
+				.on("mouseover", 
+						function(d, i) {
+    						d3.select(this).attr("fill", "liquid");
+    						displayBinInfo(i, data, down_data)
+						})
+				.on("mouseout",
+						function(d, i){
+							if(clicked_down_index != i)
+								d3.select(this).attr("fill", "steelblue");
+							else
+								d3.select(this).attr("fill", "red");
+						})
+				.on("click",
+						function(d, i) {
+							if(clicked_down_index == i) {
+								zoomout(data, i, down_chart);
+								clicked_down_index = -1;
+								d3.select(this).attr("fill", "steelblue");
+							}
+							else {
+								if(clicked_down_index != -1) {
+									d3.select(down_chart.selectAll("rect")[0][clicked_down_index]).attr("fill", "steelblue");
+								}
+								zoom_chart2.selectAll("rect").remove();
+								zoomin(data, down_data, i, down_chart);
+								clicked_down_index = i;
+								d3.select(this).attr("fill", "red");
+							}
+							
+						})
+				.transition()
+					.duration(function (d,i){ return i * 10;})
+					.attr("height", function(d) { return Math.round(d * bar_height * h_ratio); });
+				
+		}
+		
+		function zoomin(bin_data, data, index, chart) {
+			var per_bin_num = Math.floor(data.length / bin_data.length);
+			
+			var left_point = 0;
+			var right_point = 1000000;
+			
+			for(var i=index-1; i>=0; i--){
+				var orig_mid = max_width/2 - (bin_data.length/2-i) * bar_width;
+				var pos = orig_mid - Math.floor(per_bin_num * zoom_bar_width / 2 + 2*zoom_bar_width);
+				d3.select(chart.selectAll("rect")[0][i]).transition()
+					.attr("x", pos)
+					.duration(500);
+				if(pos > left_point) left_point = pos;
+			}
+			
+			for(var i=index; i<bin_data.length; i++) {
+				var orig_mid = max_width/2 - (bin_data.length/2-i) * bar_width;
+				var pos = orig_mid + Math.floor(per_bin_num * zoom_bar_width / 2 + 1*zoom_bar_width);
+				d3.select(chart.selectAll("rect")[0][i]).transition()
+					.attr("x", pos)
+					.duration(500);
+				
+				if(pos < right_point) right_point = pos;
+			}
+			
+			var zoom_data = new Array();
+			var start = index * per_bin_num;
+			for(var i=0; i<per_bin_num; i++) zoom_data[i] = data[i + start];
+			
+			var index_mid = max_width/2 - (bin_data.length/2-index + 0.5) * bar_width;
+			
+			left_point += 2 * zoom_bar_width;
+			
+			if(chart == up_chart) {
+				var h_ratio = 1;
+				var ds = $("#up_select").val();
+				if(ds =="IMDB Rating") h_ratio = 0.5;
+				
+				$("#up_zoom_div").css("z-index", 22);
+				$("#up_zoom_div").offset({left:left_point});
+				$("#up_zoom_div").width(right_point - left_point);
+				
+				$("#up_zoom").width(right_point - left_point);
+				
+				
+				zoom_chart.attr("z-index", 500);
+				zoom_chart.selectAll("rect")
+					.data(normalizeAgainst(up_data, zoom_data))
+				.enter().append("rect")
+					.attr("x", function(d,i){return (i + 1) * zoom_bar_width;})
+					.attr("y", function(d){return bar_height;})
+					.attr("width", zoom_bar_width)
+					.attr("height", function(d){return d * bar_height;})
+					.attr("fill", "orange")
+					.attr("stroke", "white")
+					.on("mouseover", 
+							function(d, i) {
+        						d3.select(this).attr("fill", "purple");
+        						displayMovieInfo(i + start);
+        						
+							})
+					.on("mouseout",
+							function(){
+								d3.select(this).attr("fill", "orange");
+							})
+					.transition()
+						.attr("y", function(d){return bar_height - y(d) * h_ratio;})
+						.duration(500);
+			}
+			else {
+				var h_ratio = 1;
+				var ds = $("#down_select").val();
+				if(ds =="IMDB Rating") h_ratio = 0.5;
+				
+				$("#down_zoom_div").css("z-index", 21);
+				var t = $("#up_zoom_div").position().top+$('#up_zoom_div').outerHeight(true);
+				$("#down_zoom_div").offset({top: t, left:left_point});
+				$("#down_zoom_div").width(right_point - left_point);
+				
+				$("#down_zoom").width(right_point - left_point);
+				
+				
+				zoom_chart2.attr("z-index", 500);
+				zoom_chart2.selectAll("rect")
+					.data(normalizeAgainst(down_data, zoom_data))
+				.enter().append("rect")
+					.attr("x", function(d,i){return (i + 1) * zoom_bar_width;})
+					.attr("y", function(d){return 0;})
+					.attr("width", zoom_bar_width)
+					.attr("height", function(d){return 0;})
+					.attr("fill", "orange")
+					.attr("stroke", "white")
+					.on("mouseover", 
+							function(d, i) {
+        						d3.select(this).attr("fill", "purple");
+        						displayMovieInfo(i + start);
+							})
+					.on("mouseout",
+							function(){
+								d3.select(this).attr("fill", "orange");
+							})
+					.transition()
+						.attr("height", function(d){ return d * bar_height * h_ratio; })
+						.duration(500);
+			}
+			
+			
+		}
+		
+		
+		
+		function zoomout(bin_data, index, chart) {
+			
+			for(var i=0; i<index; i++){
+				var orig_mid = max_width/2 - (bin_data.length/2-i) * bar_width;
+				d3.select(chart.selectAll("rect")[0][i]).transition()
+					.attr("x",  orig_mid)
+					.duration(500);
+			}
+			
+			for(var i=index; i<bin_data.length; i++) {
+				var orig_mid = max_width/2 - (bin_data.length/2-i) * bar_width;
+				d3.select(chart.selectAll("rect")[0][i]).transition()
+					.attr("x",  orig_mid)
+					.duration(500);
+			}
+			
+			if(chart == up_chart) {
+				zoom_chart.selectAll("rect").remove();
+				$("#up_zoom_div").css("z-index", 1);
+			}
+			else {
+				zoom_chart2.selectAll("rect").remove();
+				$("#down_zoom_div").css("z-index", 1);
+			}
+		}
+		
+		
+		function selectUp(val) {
+			if(up_chart == null) return;
+			up_chart.selectAll("rect").remove();
+			zoom_chart.selectAll("rect").remove();
+			$("#up_zoom_div").css("z-index", 1);
+			
+			for(var i=0; i<dataset.length; i++) {
+				up_data[i] = dataset[i][val];
+			}
+			bin_up_data = bin(up_data, up_bins);
+			drawUpBars(bin_up_data);
+		}
+		
+		
+		function selectDown(val) {
+			if(down_chart == null) return;
+			down_chart.selectAll("rect").remove();
+			zoom_chart2.selectAll("rect").remove();
+			$("#down_zoom_div").css("z-index", 1);
+			
+			for(var i=0; i<dataset.length; i++) {
+				down_data[i] = dataset[i][val];
+			}
+
+			bin_down_data = bin(down_data, down_bins);
+			drawDownBars(bin_down_data);
+		}
+		
+		function selectSort(val) {
+			if(val == "Release Date") dataset = copyData(time_dataset);
+			else sort(dataset, val);
+			
+			selectUp($("#up_select").val());
+			selectDown($("#down_select").val());
+		}
+
+		
+	</script>
+
+
 </body>
 </html>
