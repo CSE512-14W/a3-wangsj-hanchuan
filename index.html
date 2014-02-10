@@ -74,6 +74,14 @@ select {
 	color:white;
 }
 
+#title_web {
+	font-size:25px;
+}
+
+#Title {
+	font-size:20px;
+}
+
 </style>
 
 
@@ -90,7 +98,10 @@ select {
 		<div class="pa" id="down_zoom_div"><svg id="down_zoom"></svg></div>
 	</div>
 
-	<div id="info"> Visualization of Movie Data from 2000 to 2010</div>
+	<div id="info"> 
+		<div id="title_web">Which Movie to Watch Tonight?</div>
+		Visualization of Movie Data from 2000 to 2010
+	</div>
 
 	<div id="display">
 		<div id="display1" class="display">Bin Info : 
@@ -102,6 +113,7 @@ select {
 		<div id="display2" class="display">Movie Info : 
 			<div id="info2">
 				<div id="Title">Not Selected</div>
+				<div id="Distributor"></div>
 				<div id="USGross"></div>
 				<div id="WWGross"></div>
 				<div id="IMDBRating"></div>
@@ -109,11 +121,13 @@ select {
 				<div id="RTRating"></div>
 				<div id="PB"></div>
 				<div id="RD"></div>
+				<div id="Genre"></div>
 			</div>
 		</div>
 	</div>
 	
 	<div id="selects" >
+	<div class="s_div"> What data do you want to look at?</div>
 	<div class="s_div">
 	<span id="s_span1">Data on Top:</span>
 	<select id="up_select" class="my_select" onchange="selectUp(this.value)">
@@ -246,8 +260,8 @@ select {
 		var zoom_bar_width = 10;
 		var max_width = 800;
 		
-		var up_bins = 120;
-		var down_bins = 120;
+		var up_bins = 100;
+		var down_bins = 100;
 		
 		var up_data = [];
 		var down_data = [];
@@ -275,28 +289,35 @@ select {
 		
 		function displayMovieInfo(index) {
 			var movie = dataset[index];
+			var suffix = " thousand";
 			$("#Title").text(movie["Title"]);
-			$("#USGross").text("US Gross: " + Math.floor(movie["US Gross"] / (1000*1000) * 10) / 10);
-			$("#WWGross").text("WW Gross: " + Math.floor(movie["WW Gross"] / (1000*1000) * 10) / 10);
+			$("#USGross").text("US Gross: " + Math.floor(movie["US Gross"] / (1000) * 10) / 10 + suffix);
+			$("#WWGross").text("WW Gross: " + Math.floor(movie["WW Gross"] / (1000) * 10) / 10 + suffix);
 			$("#IMDBRating").text("IMDB Rating: " + movie["IMDB Rating"]);
 			$("#IMDBVotes").text("IMDB Votes: " + movie["IMDB Votes"]);
 			$("#RTRating").text("RT Rating: " + movie["Rotten Tomatoes Rating"]);
-			$("#PB").text("Production Budget: " + Math.floor(movie["Production Budget"] / (1000*1000)));	
+			$("#PB").text("Production Budget: " + Math.floor(movie["Production Budget"] / (1000)) + suffix);	
 			$("#RD").text("Release Date: " + movie["Release Date"]);
-			
+		
+			$("#Distributor").text("Distributor: " + movie["Distributor"]);
+			$("#Genre").text("Genre: " + movie["Major Genre"]);
 		}
 		
 		function displayBinInfo(index, bin_data, data) {
 			var ratio = 1;
-			if(bin_data[index] > (1000 * 1000)) ratio = 1000 * 1000;
-			$("#value").text("Average Value: " + Math.floor(bin_data[index] / ratio * 10) / 10);
+			var suffix = "";
+			if(bin_data[index] > (10000)) {
+				ratio = 1000;
+				suffix = " thousand";
+			}
+			$("#value").text("Average Value: " + Math.floor(bin_data[index] / ratio * 10) / 10 + suffix);
 			
 			var orig_data = new Array();
 			var num_per_bin = Math.floor(data.length / bin_data.length);
 			for(var i=0; i<num_per_bin; i++) {
 				orig_data[i] = data[index * num_per_bin + i];
 			}
-			$('#std').text("Standard Deviation: " + Math.floor(std(orig_data, bin_data[index]) / ratio * 10) / 10);
+			$('#std').text("Standard Deviation: " + Math.floor(std(orig_data, bin_data[index]) / ratio * 10) / 10 + suffix);
 		}
 		
 		
@@ -408,8 +429,8 @@ select {
 						})
 				.transition()
 					.duration(function (d,i){ return (data.length-i) * 16;})
-					.attr("height", function(d) { return Math.round(d * bar_height * h_ratio); })
-					.attr("y", function(d) { return bar_height - y(d) * h_ratio; });	
+					.attr("height", function(d) { return Math.round(d * bar_height * h_ratio) + 20; })
+					.attr("y", function(d) { return bar_height - y(d) * h_ratio - 20; });	
 		}
 		
 		
@@ -462,7 +483,7 @@ select {
 						})
 				.transition()
 					.duration(function (d,i){ return i * 10;})
-					.attr("height", function(d) { return Math.round(d * bar_height * h_ratio); });
+					.attr("height", function(d) { return Math.round(d * bar_height * h_ratio) + 20; });
 				
 		}
 		
@@ -494,6 +515,15 @@ select {
 			var zoom_data = new Array();
 			var start = index * per_bin_num;
 			for(var i=0; i<per_bin_num; i++) zoom_data[i] = data[i + start];
+			if(index == bin_data.length - 1) {
+				console.log("last");
+				var last = (index + 1) * per_bin_num;
+				for(var i=last; i<data.length; i++) {
+					zoom_data[per_bin_num + i - last] = data[i];
+				}
+			}
+			
+			per_bin_num = data.length - start;
 			
 			var index_mid = max_width/2 - (bin_data.length/2-index + 0.5) * bar_width;
 			
@@ -515,10 +545,10 @@ select {
 				zoom_chart.selectAll("rect")
 					.data(normalizeAgainst(up_data, zoom_data))
 				.enter().append("rect")
-					.attr("x", function(d,i){return (i + 1) * zoom_bar_width;})
+					.attr("x", function(d,i){return (i) * zoom_bar_width;})
 					.attr("y", function(d){return bar_height;})
 					.attr("width", zoom_bar_width)
-					.attr("height", function(d){return d * bar_height;})
+					.attr("height", function(d){return d * bar_height + 20;})
 					.attr("fill", "orange")
 					.attr("stroke", "white")
 					.on("mouseover", 
@@ -532,7 +562,7 @@ select {
 								d3.select(this).attr("fill", "orange");
 							})
 					.transition()
-						.attr("y", function(d){return bar_height - y(d) * h_ratio;})
+						.attr("y", function(d){return bar_height - y(d) * h_ratio - 20;})
 						.duration(500);
 			}
 			else {
@@ -552,7 +582,7 @@ select {
 				zoom_chart2.selectAll("rect")
 					.data(normalizeAgainst(down_data, zoom_data))
 				.enter().append("rect")
-					.attr("x", function(d,i){return (i + 1) * zoom_bar_width;})
+					.attr("x", function(d,i){return (i) * zoom_bar_width;})
 					.attr("y", function(d){return 0;})
 					.attr("width", zoom_bar_width)
 					.attr("height", function(d){return 0;})
@@ -568,7 +598,7 @@ select {
 								d3.select(this).attr("fill", "orange");
 							})
 					.transition()
-						.attr("height", function(d){ return d * bar_height * h_ratio; })
+						.attr("height", function(d){ return d * bar_height * h_ratio + 20; })
 						.duration(500);
 			}
 			
