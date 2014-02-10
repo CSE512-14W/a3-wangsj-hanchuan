@@ -1,6 +1,6 @@
 ## Team Members:
-1. Hanchuan Li: hanchuan@uw.edu
-2. Shengjie Wang: wangsj@uw.edu
+- Hanchuan Li: hanchuan@uw.edu
+- Shengjie Wang: wangsj@uw.edu
 
 ## Project Name：Movie Explorer：Which movie to watch tonight?
 
