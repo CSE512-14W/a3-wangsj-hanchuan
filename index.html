@@ -69,6 +69,11 @@ select {
   font-family:arial;
 }
 
+#info {
+	font-family:arial;
+	color:white;
+}
+
 </style>
 
 
@@ -84,6 +89,8 @@ select {
 		<div class="pa" id="up_zoom_div"><svg id="up_zoom"></svg></div>
 		<div class="pa" id="down_zoom_div"><svg id="down_zoom"></svg></div>
 	</div>
+
+	<div id="info"> Visualization of Movie Data from 2000 to 2010</div>
 
 	<div id="display">
 		<div id="display1" class="display">Bin Info : 
@@ -260,6 +267,7 @@ select {
 		$("#info2").offset({top:430});
 		
 		$("#selects").offset({top:20, left:20});
+		$("#info").offset({top: 20, left: max_width});
 		
 		$("#up_select").offset({left: 150});
 		$("#sort_select").offset({left: 150});
