@@ -248,8 +248,8 @@ select {
 		var zoom_bar_width = 10;
 		var max_width = 800;
 		
-		var up_bins = 120;
-		var down_bins = 120;
+		var up_bins = 119;
+		var down_bins = 119;
 		
 		var up_data = [];
 		var down_data = [];
@@ -503,6 +503,15 @@ select {
 			var zoom_data = new Array();
 			var start = index * per_bin_num;
 			for(var i=0; i<per_bin_num; i++) zoom_data[i] = data[i + start];
+			if(index == bin_data.length - 1) {
+				console.log("last");
+				var last = (index + 1) * per_bin_num;
+				for(var i=last; i<data.length; i++) {
+					zoom_data[per_bin_num + i - last] = data[i];
+				}
+			}
+			
+			per_bin_num = data.length - start;
 			
 			var index_mid = max_width/2 - (bin_data.length/2-index + 0.5) * bar_width;
 			
@@ -524,7 +533,7 @@ select {
 				zoom_chart.selectAll("rect")
 					.data(normalizeAgainst(up_data, zoom_data))
 				.enter().append("rect")
-					.attr("x", function(d,i){return (i + 1) * zoom_bar_width;})
+					.attr("x", function(d,i){return (i) * zoom_bar_width;})
 					.attr("y", function(d){return bar_height;})
 					.attr("width", zoom_bar_width)
 					.attr("height", function(d){return d * bar_height + 20;})
@@ -561,7 +570,7 @@ select {
 				zoom_chart2.selectAll("rect")
 					.data(normalizeAgainst(down_data, zoom_data))
 				.enter().append("rect")
-					.attr("x", function(d,i){return (i + 1) * zoom_bar_width;})
+					.attr("x", function(d,i){return (i) * zoom_bar_width;})
 					.attr("y", function(d){return 0;})
 					.attr("width", zoom_bar_width)
 					.attr("height", function(d){return 0;})
