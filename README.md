@@ -1,6 +1,6 @@
 Team Members:
 Hanchuan Li: hanchuan@uw.edu
-Shengjie Wang: 
+Shengjie Wang: wangsj@uw.edu
 
 Project Name：Movie Explorer.
 The data domain for our visualization is a part of the movie.csv file from assignment 2, with correction of mistakes. We visualized movies produced from 2000-2010 for user do browse and compare according to different ordering and visual encodings so that they can pick up the movie they are interested in watching.
