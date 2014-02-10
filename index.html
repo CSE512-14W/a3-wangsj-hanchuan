@@ -102,6 +102,7 @@ select {
 		<div id="display2" class="display">Movie Info : 
 			<div id="info2">
 				<div id="Title">Not Selected</div>
+				<div id="Distributor"></div>
 				<div id="USGross"></div>
 				<div id="WWGross"></div>
 				<div id="IMDBRating"></div>
@@ -109,6 +110,7 @@ select {
 				<div id="RTRating"></div>
 				<div id="PB"></div>
 				<div id="RD"></div>
+				<div id="Genre"></div>
 			</div>
 		</div>
 	</div>
@@ -275,28 +277,35 @@ select {
 		
 		function displayMovieInfo(index) {
 			var movie = dataset[index];
+			var suffix = " thousand";
 			$("#Title").text(movie["Title"]);
-			$("#USGross").text("US Gross: " + Math.floor(movie["US Gross"] / (1000*1000) * 10) / 10);
-			$("#WWGross").text("WW Gross: " + Math.floor(movie["WW Gross"] / (1000*1000) * 10) / 10);
+			$("#USGross").text("US Gross: " + Math.floor(movie["US Gross"] / (1000) * 10) / 10 + suffix);
+			$("#WWGross").text("WW Gross: " + Math.floor(movie["WW Gross"] / (1000) * 10) / 10 + suffix);
 			$("#IMDBRating").text("IMDB Rating: " + movie["IMDB Rating"]);
 			$("#IMDBVotes").text("IMDB Votes: " + movie["IMDB Votes"]);
 			$("#RTRating").text("RT Rating: " + movie["Rotten Tomatoes Rating"]);
-			$("#PB").text("Production Budget: " + Math.floor(movie["Production Budget"] / (1000*1000)));	
+			$("#PB").text("Production Budget: " + Math.floor(movie["Production Budget"] / (1000)) + suffix);	
 			$("#RD").text("Release Date: " + movie["Release Date"]);
-			
+		
+			$("#Distributor").text("Distributor: " + movie["Distributor"]);
+			$("#Genre").text("Genre: " + movie["Major Genre"]);
 		}
 		
 		function displayBinInfo(index, bin_data, data) {
 			var ratio = 1;
-			if(bin_data[index] > (1000 * 1000)) ratio = 1000 * 1000;
-			$("#value").text("Average Value: " + Math.floor(bin_data[index] / ratio * 10) / 10);
+			var suffix = "";
+			if(bin_data[index] > (10000)) {
+				ratio = 1000;
+				suffix = " thousand";
+			}
+			$("#value").text("Average Value: " + Math.floor(bin_data[index] / ratio * 10) / 10 + suffix);
 			
 			var orig_data = new Array();
 			var num_per_bin = Math.floor(data.length / bin_data.length);
 			for(var i=0; i<num_per_bin; i++) {
 				orig_data[i] = data[index * num_per_bin + i];
 			}
-			$('#std').text("Standard Deviation: " + Math.floor(std(orig_data, bin_data[index]) / ratio * 10) / 10);
+			$('#std').text("Standard Deviation: " + Math.floor(std(orig_data, bin_data[index]) / ratio * 10) / 10 + suffix);
 		}
 		
 		
@@ -408,8 +417,8 @@ select {
 						})
 				.transition()
 					.duration(function (d,i){ return (data.length-i) * 16;})
-					.attr("height", function(d) { return Math.round(d * bar_height * h_ratio); })
-					.attr("y", function(d) { return bar_height - y(d) * h_ratio; });	
+					.attr("height", function(d) { return Math.round(d * bar_height * h_ratio) + 20; })
+					.attr("y", function(d) { return bar_height - y(d) * h_ratio - 20; });	
 		}
 		
 		
@@ -462,7 +471,7 @@ select {
 						})
 				.transition()
 					.duration(function (d,i){ return i * 10;})
-					.attr("height", function(d) { return Math.round(d * bar_height * h_ratio); });
+					.attr("height", function(d) { return Math.round(d * bar_height * h_ratio) + 20; });
 				
 		}
 		
@@ -518,7 +527,7 @@ select {
 					.attr("x", function(d,i){return (i + 1) * zoom_bar_width;})
 					.attr("y", function(d){return bar_height;})
 					.attr("width", zoom_bar_width)
-					.attr("height", function(d){return d * bar_height;})
+					.attr("height", function(d){return d * bar_height + 20;})
 					.attr("fill", "orange")
 					.attr("stroke", "white")
 					.on("mouseover", 
@@ -532,7 +541,7 @@ select {
 								d3.select(this).attr("fill", "orange");
 							})
 					.transition()
-						.attr("y", function(d){return bar_height - y(d) * h_ratio;})
+						.attr("y", function(d){return bar_height - y(d) * h_ratio - 20;})
 						.duration(500);
 			}
 			else {
@@ -568,7 +577,7 @@ select {
 								d3.select(this).attr("fill", "orange");
 							})
 					.transition()
-						.attr("height", function(d){ return d * bar_height * h_ratio; })
+						.attr("height", function(d){ return d * bar_height * h_ratio + 20; })
 						.duration(500);
 			}
 			
