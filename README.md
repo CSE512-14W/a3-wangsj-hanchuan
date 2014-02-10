@@ -7,7 +7,9 @@
 
 The data domain for our visualization is a part of the movie.csv file from assignment 2, with correction of mistakes. We visualized movies produced from 2000-2010 for users to browse and compare according to different orderings and visual encodings so that they can pick up the movie in which they are interested.
 
-Users can manually select the ordering of the movie data, as well as the dimension of data to be presented on either top or bottom of the x-axis. So that they can browse the movie data according to their interests. Moreover, by comparing different dimensions together, users may be able to discover the hidden relationship among the variables.
+Users can manually select the ordering of the movie data, as well as the dimension of data to be presented on either top or bottom of the x-axis, so that they can browse the movie data according to their interests. Moreover, by comparing different dimensions together, users may be able to discover the hidden relationship among the variables.
+
+Data are first grouped into bins, and users can drill down each bin by clicking on the bar chart. Inside each bin, users can browse specific information about each movie. The detailed information about the bin, as well as the movie is displayed on the right side of the page.
 
 ## Running Instructions
 Live Version:
